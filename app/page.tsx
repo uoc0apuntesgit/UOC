@@ -45,18 +45,26 @@ export default async function HomePage({ searchParams }: PageProps) {
     );
   }
 
-  // Resolve current user
-  const currentUser = users.find(u => u.id === params.user) ?? users[0];
-  if (!params.user) {
-    redirect(`/?user=${currentUser.id}`);
-  }
-
   const cookieStore = await cookies();
   const authUserId = cookieStore.get('auth_user')?.value;
 
-  if (authUserId !== currentUser.id) {
+  // If there's no auth cookie AND no URL param, default to the first user but show login
+  if (!authUserId && !params.user) {
+    redirect(`/?user=${users[0].id}`);
+  }
+
+  // If authenticated, the user MUST be looking at their own page
+  if (authUserId && params.user !== authUserId) {
+    redirect(`/?user=${authUserId}`);
+  }
+
+  // If we are looking for a user page but not authenticated as that user, show login
+  if (!authUserId || authUserId !== params.user) {
     return <LoginForm users={users} />;
   }
+
+  // At this point, params.user === authUserId
+  const currentUser = users.find(u => u.id === authUserId) ?? users[0];
 
   const tasks = await getTasks(currentUser.id);
   const tab = params.tab ?? 'gantt';

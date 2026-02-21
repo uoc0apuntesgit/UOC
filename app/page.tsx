@@ -5,7 +5,6 @@ import { Header } from '@/app/components/Header';
 import { GanttChart } from '@/app/components/GanttChart';
 import { Dashboard } from '@/app/components/Dashboard';
 import { TaskList } from '@/app/components/TaskList';
-import { NewUserForm } from '@/app/components/NewUserForm';
 
 interface PageProps {
   searchParams: Promise<{ user?: string; tab?: string }>;
@@ -16,8 +15,30 @@ export default async function HomePage({ searchParams }: PageProps) {
 
   const [users, courses] = await Promise.all([getUsers(), getCourses()]);
 
-  if (users.length === 0 || params.tab === 'newuser') {
-    return <NewUserForm />;
+  if (users.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-8 text-center bg-slate-50 dark:bg-slate-950">
+        <div className="max-w-md w-full bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-8">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center mx-auto mb-6 shadow-sm">
+            <span className="text-2xl">🔒</span>
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Acceso Restringido</h1>
+          <p className="text-slate-500 dark:text-slate-400 mb-6">
+            Por seguridad, esta aplicación es privada. Para habilitar las cuentas de <strong>Raul</strong> y <strong>Miguel</strong>, ejecuta este código en el SQL Editor de Supabase:
+          </p>
+          <div className="text-left bg-slate-900 rounded-xl p-4 overflow-x-auto relative group">
+            <code className="text-sm font-mono text-indigo-300">
+              INSERT INTO public.users (name)
+              <br />
+              VALUES ('Raul'), ('Miguel Angel');
+            </code>
+          </div>
+          <p className="mt-6 text-sm text-slate-400">
+            Una vez ejecutado, recarga esta página.
+          </p>
+        </div>
+      </div>
+    );
   }
 
   // Resolve current user

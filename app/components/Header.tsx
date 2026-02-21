@@ -76,13 +76,6 @@ export function Header({ users, currentUserId }: HeaderProps) {
                             {user.name}
                         </Link>
                     ))}
-                    <Link
-                        href="/?tab=newuser"
-                        className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all text-indigo-500 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-                        title="Añadir nuevo perfil"
-                    >
-                        + Añadir Perfil
-                    </Link>
                 </div>
 
                 {/* ICS import */}

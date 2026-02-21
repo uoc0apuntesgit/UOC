@@ -24,13 +24,6 @@ export async function getUsers() {
     return data ?? [];
 }
 
-/** Create a new user */
-export async function createUser(name: string) {
-    const { data, error } = await supabase.from('users').insert([{ name }]).select().single();
-    if (error) throw new Error(error.message);
-    revalidatePath('/');
-    return data;
-}
 
 /** Fetch all courses */
 export async function getCourses() {

@@ -57,9 +57,7 @@ FROM (VALUES
   ('75.445','Raul','PS — Writing B','2026-04-10','2026-04-24','PS',0)
 ) AS t(course_code, user_name, title, start_date, end_date, type, progress)
 JOIN courses c ON c.code = t.course_code
-JOIN users   u ON u.name = t.user_name
-ON CONFLICT DO NOTHING;
-
+JOIN users   u ON u.name = t.user_name;
 -- Miguel Angel tasks (subset)
 INSERT INTO tasks (course_id, user_id, title, start_date, end_date, type, progress)
 SELECT
@@ -74,5 +72,4 @@ FROM (VALUES
   ('75.443','Miguel Angel','PRA 2 — POO','2026-03-18','2026-04-01','PRA',0)
 ) AS t(course_code, user_name, title, start_date, end_date, type, progress)
 JOIN courses c ON c.code = t.course_code
-JOIN users   u ON u.name = t.user_name
-ON CONFLICT DO NOTHING;
+JOIN users   u ON u.name = t.user_name;

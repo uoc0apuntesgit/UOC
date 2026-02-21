@@ -5,6 +5,7 @@ import { Header } from '@/app/components/Header';
 import { GanttChart } from '@/app/components/GanttChart';
 import { Dashboard } from '@/app/components/Dashboard';
 import { TaskList } from '@/app/components/TaskList';
+import { NewUserForm } from '@/app/components/NewUserForm';
 
 interface PageProps {
   searchParams: Promise<{ user?: string; tab?: string }>;
@@ -15,26 +16,8 @@ export default async function HomePage({ searchParams }: PageProps) {
 
   const [users, courses] = await Promise.all([getUsers(), getCourses()]);
 
-  if (users.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-8 text-center">
-        <div className="max-w-md">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl">🎓</span>
-          </div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">UOC Planner</h1>
-          <p className="text-slate-500 dark:text-slate-400 mb-4">
-            Configura tu base de datos en Supabase para comenzar.
-          </p>
-          <ol className="text-sm text-left text-slate-600 dark:text-slate-300 space-y-1 bg-slate-100 dark:bg-slate-800 rounded-xl p-4">
-            <li>1. Añade tus credenciales en <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">.env.local</code></li>
-            <li>2. Ejecuta <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">supabase/schema.sql</code> en Supabase</li>
-            <li>3. Ejecuta <code className="bg-slate-200 dark:bg-slate-700 px-1 rounded">supabase/seed.sql</code> para datos de ejemplo</li>
-            <li>4. Recarga la página</li>
-          </ol>
-        </div>
-      </div>
-    );
+  if (users.length === 0 || params.tab === 'newuser') {
+    return <NewUserForm />;
   }
 
   // Resolve current user
@@ -74,8 +57,8 @@ export default async function HomePage({ searchParams }: PageProps) {
               key={key}
               href={`?user=${currentUser.id}&tab=${key}`}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === key
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
-                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
                 }`}
             >
               {label}

@@ -69,13 +69,20 @@ export function Header({ users, currentUserId }: HeaderProps) {
                             key={user.id}
                             href={buildUrl(user.id)}
                             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${user.id === currentUserId
-                                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
-                                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
                                 }`}
                         >
                             {user.name}
                         </Link>
                     ))}
+                    <Link
+                        href="/?tab=newuser"
+                        className="px-3 py-1.5 rounded-lg text-sm font-medium transition-all text-indigo-500 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                        title="Añadir nuevo perfil"
+                    >
+                        + Añadir Perfil
+                    </Link>
                 </div>
 
                 {/* ICS import */}
@@ -96,8 +103,8 @@ export function Header({ users, currentUserId }: HeaderProps) {
                     <label
                         htmlFor="ics-upload"
                         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all cursor-pointer border ${uploading
-                                ? 'border-slate-200 text-slate-400 cursor-wait'
-                                : 'border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-indigo-300 hover:text-indigo-600 dark:hover:text-indigo-400'
+                            ? 'border-slate-200 text-slate-400 cursor-wait'
+                            : 'border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-indigo-300 hover:text-indigo-600 dark:hover:text-indigo-400'
                             }`}
                     >
                         <Upload className="w-3.5 h-3.5" />

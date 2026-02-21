@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import type { User } from '@/lib/supabase';
-import { GraduationCap, Upload } from 'lucide-react';
+import { GraduationCap, Upload, LogOut } from 'lucide-react';
 import { useState, useRef } from 'react';
+import { logoutUser } from '@/app/actions/auth';
 
 interface HeaderProps {
     users: User[];
@@ -103,6 +104,17 @@ export function Header({ users, currentUserId }: HeaderProps) {
                         <Upload className="w-3.5 h-3.5" />
                         {uploading ? 'Importando…' : 'Importar .ics'}
                     </label>
+
+                    <button
+                        onClick={async () => {
+                            await logoutUser();
+                            window.location.reload();
+                        }}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-red-600 hover:border-red-200 hover:bg-red-50 dark:hover:bg-red-900/30"
+                        title="Cerrar sesión"
+                    >
+                        <LogOut className="w-3.5 h-3.5" />
+                    </button>
                 </div>
             </div>
         </header>

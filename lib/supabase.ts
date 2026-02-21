@@ -12,6 +12,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export type User = {
   id: string;
   name: string;
+  password?: string;
 };
 
 export type Course = {

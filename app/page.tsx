@@ -5,6 +5,8 @@ import { Header } from '@/app/components/Header';
 import { GanttChart } from '@/app/components/GanttChart';
 import { Dashboard } from '@/app/components/Dashboard';
 import { TaskList } from '@/app/components/TaskList';
+import { cookies } from 'next/headers';
+import { LoginForm } from '@/app/components/LoginForm';
 
 interface PageProps {
   searchParams: Promise<{ user?: string; tab?: string }>;
@@ -45,6 +47,13 @@ export default async function HomePage({ searchParams }: PageProps) {
   const currentUser = users.find(u => u.id === params.user) ?? users[0];
   if (!params.user) {
     redirect(`/?user=${currentUser.id}`);
+  }
+
+  const cookieStore = await cookies();
+  const authUserId = cookieStore.get('auth_user')?.value;
+
+  if (authUserId !== currentUser.id) {
+    return <LoginForm users={users} />;
   }
 
   const tasks = await getTasks(currentUser.id);

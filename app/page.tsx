@@ -8,6 +8,8 @@ import { TaskList } from '@/app/components/TaskList';
 import { cookies } from 'next/headers';
 import { LoginForm } from '@/app/components/LoginForm';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   searchParams: Promise<{ user?: string; tab?: string }>;
 }

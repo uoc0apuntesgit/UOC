@@ -14,9 +14,9 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "gantt-task-react": "^0.3.9",
+    "ical.js": "^2.2.1",
     "lucide-react": "^0.575.0",
     "next": "16.1.6",
-    "node-ical": "^0.25.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.5.0"

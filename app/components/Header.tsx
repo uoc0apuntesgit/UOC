@@ -65,17 +65,13 @@ export function Header({ users, currentUserId }: HeaderProps) {
 
                 {/* User selector */}
                 <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded-xl p-1">
-                    {users.map(user => (
-                        <Link
+                    {users.filter(u => u.id === currentUserId).map(user => (
+                        <div
                             key={user.id}
-                            href={buildUrl(user.id)}
-                            className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${user.id === currentUserId
-                                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
-                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
-                                }`}
+                            className="px-3 py-1.5 rounded-lg text-sm font-medium bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
                         >
                             {user.name}
-                        </Link>
+                        </div>
                     ))}
                 </div>
 
